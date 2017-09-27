@@ -15,7 +15,6 @@ def HandleOrderRequest(order):
 		products.append(det.product_guid)
 	
 	for p in products:
-		print p
 		p_guid = GetRecipeGuid(p)
 		p_ingredients = GetRecipeIngredients(p_guid)
 		for ing in p_ingredients:
@@ -26,7 +25,6 @@ def HandleOrderRequest(order):
 	response['store'] = 'Tienda01'
 	response['order'] = orderModel.order_guid
 	response['ingredients'] = ingredients
-	print response
 	return response
 
 def ValidateOrderRequest(order):

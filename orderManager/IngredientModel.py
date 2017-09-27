@@ -3,6 +3,7 @@ import datetime
 
 class IngredientModel:
     ingredient_guid = str(uuid.uuid4())
+    recipe_guid = ""
     name = ""
     qty = 0
 
@@ -11,7 +12,10 @@ class IngredientModel:
             if (key == 'name'):
                 self.name = value
             elif (key == 'qty'):
-                self.qty = value 
+                self.qty = value
+            elif (key == 'recipe_guid'):
+                self.recipe_guid = value 
+ 
 
     def ValidateIngredient(self, ingredient):
         if ingredient.name == None or ingredient.name == "":

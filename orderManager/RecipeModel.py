@@ -22,5 +22,5 @@ class RecipeModel:
         if recipe.price == None or recipe.price < 0:
             raise Exception("Recipe PRICE is invalid")
         if recipe.ingredients == None:
-            rause Exception("Recipe INGREDIENTS is invalid")
+            raise Exception("Recipe INGREDIENTS is invalid")
         return True 
