@@ -22,7 +22,7 @@ class ordersTest(TestCase):
 		self.api_client.post('/api-ordermanager/validateorder/', {"token":"df6dllel8af84d7eb3bbcc8b7","orderid":"0123456789","products":[{"quantity":2,"store_guid":"tienda01","product_guid":'Cocacola'}]}, format='json')
 
 	#Stress tests
-	def stresstest_validateorder(self):
+	def test_stress_validateorder(self):
 	    start_time = time()
 	    self.api_client.post('/api-ordermanager/validateorder/', {"token":"df6dllel8af84d7eb3bbcc8b7","orderid":"0123456789","products":[{"quantity":2,"store_guid":"tienda01","product_guid":'Cocacola'}]}, format='json')
 	    elapsed_time = time() - start_time
@@ -34,7 +34,7 @@ class ordersTest(TestCase):
 
 		self.assertTrue(value)
 
-	def stresstest_order(self):
+	def test_stress_order(self):
 	    start_time = time()
 	    response = self.api_client.post('/api-ordermanager/order/', {"token":'0123456789',"order": {"address":'A101',"status":'RECEIVED',"store":'Tienda01',"products":[{"product":'Cocacola',"qty":'1'},{"product":'Hamburguesa',"qty":'1'}]}}, format='json')
 	    elapsed_time = time() - start_time
