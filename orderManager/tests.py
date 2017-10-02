@@ -5,8 +5,12 @@ from .RecipeModel import *
 from .IngredientModel import *
 from .models import *
 import json 
+from rest_framework.test import APIClient
+from time import time
 # Create your tests here.
 
+
+# UNITARIAS
 class orderTestCase(TestCase):
 
 	def setUp(self):
@@ -113,7 +117,7 @@ class orderTestCase(TestCase):
 
 		self.assertTrue(True) 
 
-
+#STRESS
 	#Stress tests
 	def test_stress_validateorder(self):
 	    start_time = time()
@@ -136,3 +140,5 @@ class orderTestCase(TestCase):
 	        value = True
 	    # print "Stress Test - ORDER: ",elapsed_time
 		self.assertTrue(value)
+
+#INTEGRACION
