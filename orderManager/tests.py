@@ -56,6 +56,13 @@ class orderTestCase(TestCase):
 		Ingredient.objects.create_new_ingredient(hmb_ingredient3)
 		
 
+		#setup for tests
+		self.client = Client()
+		self.api_client = APIClient()
+		self.limitstress = 0.5
+		self.api_client.post('/api-ordermanager/validateorder/', {"token":"df6dllel8af84d7eb3bbcc8b7","orderid":"0123456789","products":[{"quantity":2,"store_guid":"tienda01","product_guid":'Cocacola'}]}, format='json')
+
+
 	def test_IngredientSep(self):
 		orderj = {
 			"token": '0123456789',
@@ -105,3 +112,27 @@ class orderTestCase(TestCase):
 		response = ValidateOrderRequest(dataj)
 
 		self.assertTrue(True) 
+
+
+	#Stress tests
+	def test_stress_validateorder(self):
+	    start_time = time()
+	    self.api_client.post('/api-ordermanager/validateorder/', {"token":"df6dllel8af84d7eb3bbcc8b7","orderid":"0123456789","products":[{"quantity":2,"store_guid":"tienda01","product_guid":'Cocacola'}]}, format='json')
+	    elapsed_time = time() - start_time
+	    value = False
+	    if(self.limitstress > elapsed_time):
+	        value = True
+
+	    # print "Stress Test - VALIDATE ORDER: ",elapsed_time
+
+		self.assertTrue(value)
+
+	def test_stress_order(self):
+	    start_time = time()
+	    response = self.api_client.post('/api-ordermanager/order/', {"token":'0123456789',"order": {"address":'A101',"status":'RECEIVED',"store":'Tienda01',"products":[{"product":'Cocacola',"qty":'1'},{"product":'Hamburguesa',"qty":'1'}]}}, format='json')
+	    elapsed_time = time() - start_time
+	    value = False
+	    if(self.limitstress > elapsed_time):
+	        value = True
+	    # print "Stress Test - ORDER: ",elapsed_time
+		self.assertTrue(value)
