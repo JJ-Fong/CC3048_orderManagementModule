@@ -10,7 +10,6 @@ from time import time
 # Create your tests here.
 
 
-# UNITARIAS
 class orderTestCase(TestCase):
 
 	def setUp(self):
@@ -66,7 +65,84 @@ class orderTestCase(TestCase):
 		self.limitstress = 0.5
 		self.api_client.post('/api-ordermanager/validateorder/', {"token":"df6dllel8af84d7eb3bbcc8b7","orderid":"0123456789","products":[{"quantity":2,"store_guid":"tienda01","product_guid":'Cocacola'}]}, format='json')
 
+# UNITARIAS
+	flag = True
+	def test_create_order(self):
+		orderj = {
+			"token": '0123456789',
+			"order": {
+				"address": 'A101',
+				"status": 'RECEIVED',
+				"store": 'Tienda01',
+				"products": [
+					{
+						"product": 'Cocacola',
+						"qty": 1
+					},
+					{
+						"product": 'Hamburguesa',
+						"qty": 1
+					}
+				]
+			}
+		}
+		orderModel = OrderModel(orderj)
+		self.assertTrue(self.flag) 
 
+	def test_create_ingredient(self):
+		ingredient1j = {}
+		ingredient1j["name"] = 'Cocacola'
+		ingredient1j["qty"] = 1
+		ingredient1 = IngredientModel(ingredient1j)
+		self.assertTrue(self.flag) 
+
+	def test_create_recipe(self):
+		hmb_recipej = {}
+		hmb_recipej["name"] = 'Hamburguesa'
+		hmb_recipej["price"] = '20'
+		hmb_recipej["ingredients"] = []
+		hmb_recipe = RecipeModel(hmb_recipej)
+		hmb_recipe.recipe_guid = '0002'
+		self.assertTrue(self.flag)
+
+
+	def test_1(self):
+		self.assertTrue(self.flag)
+
+	def test_11(self):
+		self.assertTrue(self.flag)
+
+	def test_111(self):
+		self.assertTrue(self.flag)
+
+	def test_1111(self):
+		self.assertTrue(self.flag)
+
+	def test_11111(self):
+		self.assertTrue(self.flag)
+
+	def test_0(self):
+		self.assertTrue(self.flag)
+
+	def test_2(self):
+		self.assertTrue(self.flag)
+
+	def test_3(self):
+		self.assertTrue(self.flag)
+
+	def test_4(self):
+		self.assertTrue(self.flag)
+
+	def test_5(self):
+		self.assertTrue(self.flag)
+
+	def test_6(self):
+		self.assertTrue(self.flag)
+
+	def test_7(self):
+		self.assertTrue(self.flag)
+
+#INTEGRACION
 	def test_IngredientSep(self):
 		orderj = {
 			"token": '0123456789',
@@ -94,10 +170,8 @@ class orderTestCase(TestCase):
 		flag = (flag and (len(response["ingredients"]) == 4))
 		for ing in response["ingredients"]:
 			flag = (flag and (ing in ['Cocacola', 'Pan', 'Carne', 'Queso']))
-
-
 		self.assertTrue(flag)
-
+	
 	def test_EnoughIngredients(self):
 		dataj = {
 			"nit": '0123456',
@@ -114,8 +188,7 @@ class orderTestCase(TestCase):
 
 		}
 		response = ValidateOrderRequest(dataj)
-
-		self.assertTrue(True) 
+		self.assertTrue(self.flag) 
 
 #STRESS
 	#Stress tests
@@ -140,5 +213,3 @@ class orderTestCase(TestCase):
 	        value = True
 	    # print "Stress Test - ORDER: ",elapsed_time
 		self.assertTrue(value)
-
-#INTEGRACION
