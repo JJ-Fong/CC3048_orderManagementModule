@@ -37,13 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_jenkins',
     'orderManager.apps.OrdermanagerConfig'
 ]
-
-JENKINS_TASKS = (
-    'django_jenkins.tasks.run_pylint',
-)
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
